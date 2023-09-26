@@ -1,0 +1,75 @@
+SELECT * FROM mentalhealth.analysis.studentinfo;
+
+CREATE VIEW infotable AS
+SELECT inter_dom, japanese_cate, english_cate, academic, age, stay, todep, tosc, toas
+FROM mentalhealth.analysis.studentinfo;
+
+SELECT * 
+FROM infotable;
+
+--Will check for the null values within the table and remove them.
+
+SELECT * 
+FROM mentalhealth.analysis.studentinfo
+WHERE toas IS NULL AND tosc IS NULL AND todep IS NULL;
+
+DELETE 
+FROM mentalhealth.analysis.studentinfo
+WHERE toas IS NULL AND tosc IS NULL AND todep IS NULL;
+
+SELECT avg(todep)
+FROM infotable;
+
+--Finding the total number of international and domestic students.
+
+SELECT inter_dom, Count(inter_dom) as total_students
+FROM infotable
+GROUP BY inter_dom;
+
+SELECT inter_dom, avg(toas) as avg_toas , avg(tosc) as avg_tosc, 
+  	   avg(todep) as avg_todep
+FROM infotable
+GROUP BY inter_dom;
+
+SELECT inter_dom, MAX(toas) as max_toas , MAX(tosc) as max_tosc, 
+  	   MAX(todep) as max_todep
+FROM infotable
+GROUP BY inter_dom;
+
+SELECT inter_dom, MIN(toas) as min_toas , MIN(tosc) as min_tosc, 
+  	   MIN(todep) as min_todep
+FROM infotable
+GROUP BY inter_dom;
+
+
+SELECT stay, avg(todep)
+FROM infotable
+WHere inter_dom = 'Inter' AND stay between 0 and 3
+GROUP BY stay
+ORDER BY STAY DESC;
+
+SELECT stay, avg(todep)
+FROM infotable
+WHere inter_dom = 'Inter' AND stay between 4 and 7
+GROUP BY stay
+ORDER BY STAY DESC;
+
+SELECT avg(todep)
+FROM infotable
+WHere stay between 1 and 2;
+
+SELECT avg(todep)
+FROM infotable
+WHere stay between 3 and 4;
+
+SELECT avg(todep)
+FROM infotable
+WHere stay between 5 and 6;
+
+SELECT avg(todep)
+FROM infotable
+WHere stay between 7 and 8;
+
+SELECT avg(todep)
+FROM infotable
+WHere stay between 9 and 10;
